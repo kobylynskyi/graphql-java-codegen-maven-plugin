@@ -5,24 +5,31 @@
     <artifactId>graphql-codegen-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <version>1.0</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <name>graphql-codegen-maven-plugin Maven Mojo</name>
-    <url>http://maven.apache.org</url>
+
+    <name>graphql-codegen-maven-plugin</name>
+    <description>Provides a goal for generating Java code based on GraphQL schema</description>
+    <url>https://github.com/kobylynskyi/graphql-java-codegen-maven-plugin</url>
+    <developers>
+        <developer>
+            <id>kobylynskyi</id>
+            <name>Bogdan Kobylynskyi</name>
+            <url>https://github.com/kobylynskyi</url>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/kobylynskyi/graphql-java-codegen/issues</url>
+    </issueManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
+            <version>3.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
             <version>3.6.2</version>
         </dependency>
         <dependency>
@@ -38,4 +45,40 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>mojo-descriptor</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>help-goal</id>
+                        <goals>
+                            <goal>helpmojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

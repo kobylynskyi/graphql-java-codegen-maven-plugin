@@ -4,8 +4,10 @@ import com.kobylynskyi.graphql.codegen.GraphqlCodegen;
 import com.kobylynskyi.graphql.codegen.model.MappingConfig;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.util.Arrays;
@@ -13,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-@Mojo(name = "graphqlCodegen")
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class GraphqlCodegenMojo extends AbstractMojo {
 
     @Parameter(required = true)
@@ -33,8 +35,16 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     @Parameter
     private String modelNameSuffix;
 
+    /**
+     * The project being built.
+     */
+    @Parameter(readonly = true, required = true, defaultValue = "${project}")
+    private MavenProject project;
+
     @Override
     public void execute() throws MojoExecutionException {
+        addCompileSourceRootIfConfigured();
+
         MappingConfig mappingConfig = new MappingConfig();
         mappingConfig.setPackageName(packageName);
         mappingConfig.setCustomTypesMapping(convertToMap(customTypesMapping));
@@ -45,8 +55,15 @@ public class GraphqlCodegenMojo extends AbstractMojo {
         try {
             new GraphqlCodegen(Arrays.asList(graphqlSchemaPaths), outputDir, mappingConfig).generate();
         } catch (Exception e) {
-            throw new MojoExecutionException("Unable to generate code", e);
+            getLog().error(e);
+            throw new MojoExecutionException("Code generation failed. See above for the full exception.");
         }
+    }
+
+    private void addCompileSourceRootIfConfigured() {
+        String path = outputDir.getPath();
+        getLog().info("Added the following path to the source root: " + path);
+        project.addCompileSourceRoot(path);
     }
 
     private static Map<String, String> convertToMap(Properties properties) {
