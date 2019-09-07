@@ -1,5 +1,6 @@
 # GraphQL Codegen Maven plugin #
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.kobylynskyi/graphql-codegen-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.kobylynskyi/graphql-codegen-maven-plugin)
 [![Build Status](https://travis-ci.com/kobylynskyi/graphql-java-codegen-maven-plugin.svg?branch=master)](https://travis-ci.com/kobylynskyi/graphql-java-codegen-maven-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -13,17 +14,36 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 * POJO classes for GraphQL types
 * Enum classes for each GraphQL enum
 
-### Plugin Setup
+### Plugin Setup and Configuration
 
-*TBD*
-
-### Plugin Configuration
-
-*TBD*
-
-### Additional Configurations
-
-*TBD*
+    <build>
+        <plugins>
+            ...
+            <plugin>
+                <groupId>io.github.kobylynskyi</groupId>
+                <artifactId>graphql-codegen-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <graphqlSchemaPaths>${project.basedir}/src/main/resources/schema.graphqls
+                            </graphqlSchemaPaths>
+                            <outputDir>${project.build.directory}/generated-sources/graphql</outputDir>
+                            <packageName>io.github.kobylynskyi.bikeshop.graphql.model</packageName>
+                            <customTypesMapping>
+                                <DateTime>java.util.Date</DateTime>
+                            </customTypesMapping>
+                            <modelNameSuffix>TO</modelNameSuffix>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+    </build>
 
 
 #### Plugin Options
@@ -42,7 +62,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 
 ### Example
 
-[graphql-codegen-maven-plugin-example](graphql-codegen-maven-plugin-example)
+[example project](example)
 
 
 ### Inspired by
