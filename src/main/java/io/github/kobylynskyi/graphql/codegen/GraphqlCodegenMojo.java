@@ -23,7 +23,7 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     @Parameter(required = true)
     private File outputDir;
     @Parameter
-    private Properties customTypesMapping;
+    private Map<String, String> customTypesMapping;
     @Parameter
     private String packageName;
     @Parameter
@@ -47,7 +47,7 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
         MappingConfig mappingConfig = new MappingConfig();
         mappingConfig.setPackageName(packageName);
-        mappingConfig.setCustomTypesMapping(convertToMap(customTypesMapping));
+        mappingConfig.setCustomTypesMapping(customTypesMapping != null ? customTypesMapping : new HashMap<>());
         mappingConfig.setModelNamePrefix(modelNamePrefix);
         mappingConfig.setModelNameSuffix(modelNameSuffix);
         mappingConfig.setApiPackageName(apiPackageName);
@@ -88,11 +88,11 @@ public class GraphqlCodegenMojo extends AbstractMojo {
         this.outputDir = outputDir;
     }
 
-    public Properties getCustomTypesMapping() {
+    public Map<String, String> getCustomTypesMapping() {
         return customTypesMapping;
     }
 
-    public void setCustomTypesMapping(Properties customTypesMapping) {
+    public void setCustomTypesMapping(Map<String, String> customTypesMapping) {
         this.customTypesMapping = customTypesMapping;
     }
 
