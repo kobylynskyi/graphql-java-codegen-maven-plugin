@@ -16,6 +16,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 
 ### Plugin Setup and Configuration
 
+```xml
     <build>
         <plugins>
             ...
@@ -44,6 +45,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
             ...
         </plugins>
     </build>
+```
 
 
 #### Plugin Options
