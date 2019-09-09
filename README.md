@@ -36,6 +36,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
                             <packageName>io.github.kobylynskyi.bikeshop.graphql.model</packageName>
                             <customTypesMapping>
                                 <DateTime>java.util.Date</DateTime>
+                                <Price.amount>java.math.BigDecimal</Price.amount>
                             </customTypesMapping>
                             <modelNameSuffix>TO</modelNameSuffix>
                         </configuration>
@@ -55,7 +56,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 | graphqlSchemaPaths      | List(String)       | None          | GraphQL schema locations. You can supply multiple paths to GraphQL schemas. |
 | packageName             | String             | Empty         | Java package for generated classes. |
 | outputDir               | String             | None          | The output target directory into which code will be generated. |
-| customTypesMapping      | Map(String,String) | Empty         | Map of (GraphQL Schema Type) to (Java Type). Can be used to supply custom mappings for scalars. |
+| customTypesMapping      | Map(String,String) | Empty         | Can be used to supply custom mappings for scalars. <br/> Supports:<br/> * Map of (GraphqlObjectName.fieldName) to (JavaType) <br/> * Map of (GraphqlType) to (JavaType) |
 | modelNamePrefix         | String             | Empty         | Sets the prefix for GraphQL model classes (type, input, interface, enum, union). |
 | modelNameSuffix         | String             | Empty         | Sets the suffix for GraphQL model classes (type, input, interface, enum, union). |
 | apiPackage              | String             | Empty         | Java package for generated api classes (Query, Mutation, Subscription). |
