@@ -1,7 +1,7 @@
 # GraphQL Codegen Maven plugin #
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.kobylynskyi/graphql-codegen-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.kobylynskyi/graphql-codegen-maven-plugin)
-[![Build Status](https://travis-ci.com/kobylynskyi/graphql-java-codegen-maven-plugin.svg?branch=master)](https://travis-ci.com/kobylynskyi/graphql-java-codegen-maven-plugin)
+[![Build Status](https://github.com/kobylynskyi/graphql-java-codegen-maven-plugin/workflows/Build/badge.svg)](https://github.com/kobylynskyi/graphql-java-codegen-maven-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This document describes the maven plugin for GraphQL Generator.
