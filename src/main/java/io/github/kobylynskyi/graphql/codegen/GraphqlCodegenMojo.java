@@ -25,7 +25,11 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     @Parameter
     private Map<String, String> customTypesMapping;
     @Parameter
+    private Map<String, String> customAnnotationsMapping;
+    @Parameter
     private String packageName;
+    @Parameter(defaultValue = "true")
+    private boolean generateApis;
     @Parameter
     private String apiPackageName;
     @Parameter
@@ -34,6 +38,8 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     private String modelNamePrefix;
     @Parameter
     private String modelNameSuffix;
+    @Parameter(defaultValue = "javax.validation.constraints.NotNull")
+    private String modelValidationAnnotation;
 
     /**
      * The project being built.
@@ -52,6 +58,9 @@ public class GraphqlCodegenMojo extends AbstractMojo {
         mappingConfig.setModelNameSuffix(modelNameSuffix);
         mappingConfig.setApiPackageName(apiPackageName);
         mappingConfig.setModelPackageName(modelPackageName);
+        mappingConfig.setGenerateApis(generateApis);
+        mappingConfig.setModelValidationAnnotation(modelValidationAnnotation);
+        mappingConfig.setCustomAnnotationsMapping(customAnnotationsMapping != null ? customAnnotationsMapping : new HashMap<>());
         try {
             new GraphqlCodegen(Arrays.asList(graphqlSchemaPaths), outputDir, mappingConfig).generate();
         } catch (Exception e) {
@@ -134,5 +143,29 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
     public void setModelNameSuffix(String modelNameSuffix) {
         this.modelNameSuffix = modelNameSuffix;
+    }
+
+    public Map<String, String> getCustomAnnotationsMapping() {
+        return customAnnotationsMapping;
+    }
+
+    public void setCustomAnnotationsMapping(Map<String, String> customAnnotationsMapping) {
+        this.customAnnotationsMapping = customAnnotationsMapping;
+    }
+
+    public String getModelValidationAnnotation() {
+        return modelValidationAnnotation;
+    }
+
+    public void setModelValidationAnnotation(String modelValidationAnnotation) {
+        this.modelValidationAnnotation = modelValidationAnnotation;
+    }
+
+    public boolean isGenerateApis() {
+        return generateApis;
+    }
+
+    public void setGenerateApis(boolean generateApis) {
+        this.generateApis = generateApis;
     }
 }

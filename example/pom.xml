@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.kobylynskyi.graphql.codegen</groupId>
     <artifactId>graphql-codegen-maven-plugin-example</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <name>graphql-codegen-maven-plugin-example</name>
 
@@ -13,7 +13,7 @@
             <plugin>
                 <groupId>io.github.kobylynskyi</groupId>
                 <artifactId>graphql-codegen-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.2</version>
                 <executions>
                     <execution>
                         <goals>
