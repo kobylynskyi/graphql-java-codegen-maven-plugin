@@ -1,6 +1,6 @@
 # GraphQL Codegen Maven plugin #
 
-[![CircleCI](https://circleci.com/gh/kobylynskyi/graphql-java-codegen-maven-plugin/tree/master.svg?style=svg)](https://circleci.com/gh/kobylynskyi/graphql-java-codegen-maven-plugin/tree/master)
+[![CircleCI](https://img.shields.io/circleci/build/github/kobylynskyi/graphql-java-codegen-maven-plugin)](https://circleci.com/gh/kobylynskyi/graphql-java-codegen-maven-plugin/tree/master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.kobylynskyi/graphql-codegen-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.kobylynskyi/graphql-codegen-maven-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
