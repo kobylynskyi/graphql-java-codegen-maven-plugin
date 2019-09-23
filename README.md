@@ -17,38 +17,37 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 ### Plugin Setup and Configuration
 
 ```xml
-    <build>
-        <plugins>
-            ...
-            <plugin>
-                <groupId>io.github.kobylynskyi</groupId>
-                <artifactId>graphql-codegen-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <graphqlSchemaPaths>${project.basedir}/src/main/resources/schema.graphqls
-                            </graphqlSchemaPaths>
-                            <outputDir>${project.build.directory}/generated-sources/graphql</outputDir>
-                            <packageName>io.github.kobylynskyi.bikeshop.graphql.model</packageName>
-                            <customTypesMapping>
-                                <DateTime>java.util.Date</DateTime>
-                                <Price.amount>java.math.BigDecimal</Price.amount>
-                            </customTypesMapping>
-                            <customAnnotationsMapping>
-                                <EpochMillis>com.fasterxml.jackson.databind.annotation.JsonDeserialize(using = com.example.json.EpochMillisScalarDeserializer.class</EpochMillis>
-                            </customAnnotationsMapping>
-                            <modelNameSuffix>TO</modelNameSuffix>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            ...
-        </plugins>
-    </build>
+<build>
+    <plugins>
+        ...
+        <plugin>
+            <groupId>io.github.kobylynskyi</groupId>
+            <artifactId>graphql-codegen-maven-plugin</artifactId>
+            <version>1.2.2</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <graphqlSchemaPaths>${project.basedir}/src/main/resources/schema.graphqls</graphqlSchemaPaths>
+                        <outputDir>${project.build.directory}/generated-sources/graphql</outputDir>
+                        <packageName>io.github.kobylynskyi.bikeshop.graphql.model</packageName>
+                        <customTypesMapping>
+                            <DateTime>java.util.Date</DateTime>
+                            <Price.amount>java.math.BigDecimal</Price.amount>
+                        </customTypesMapping>
+                        <customAnnotationsMapping>
+                            <EpochMillis>com.fasterxml.jackson.databind.annotation.JsonDeserialize(using = com.example.json.EpochMillisScalarDeserializer.class</EpochMillis>
+                        </customAnnotationsMapping>
+                        <modelNameSuffix>TO</modelNameSuffix>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        ...
+    </plugins>
+</build>
 ```
 
 
@@ -68,6 +67,34 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 | modelNamePrefix           | String             | Empty                                 | Sets the prefix for GraphQL model classes (type, input, interface, enum, union). |
 | modelNameSuffix           | String             | Empty                                 | Sets the suffix for GraphQL model classes (type, input, interface, enum, union). |
 
+
+### Different configuration for each graphql schema
+If you want to have different configuration for different `.graphqls` files (e.g.: different javaPackage, outputDir, etc.), then you will need to define separate executions for each set of schemas. E.g.:
+
+```xml
+<executions>
+    <execution>
+        <id>graphqlCodegenService1</id>
+        <goals>
+            <goal>generate</goal>
+        </goals>
+        <configuration>
+            <graphqlSchemaPaths>${project.basedir}/src/main/resources/schema1.graphqls</graphqlSchemaPaths>
+            <outputDir>${project.build.directory}/generated-sources/graphql1</outputDir>
+        </configuration>
+    </execution>
+    <execution>
+        <id>graphqlCodegenService2</id>
+        <goals>
+            <goal>generate</goal>
+        </goals>
+        <configuration>
+            <graphqlSchemaPaths>${project.basedir}/src/main/resources/schema2.graphqls</graphqlSchemaPaths>
+            <outputDir>${project.build.directory}/generated-sources/graphql2</outputDir>
+        </configuration>
+    </execution>
+</executions>
+```
 
 ### Example
 
