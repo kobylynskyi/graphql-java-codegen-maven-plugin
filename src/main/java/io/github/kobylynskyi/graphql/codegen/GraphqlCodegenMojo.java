@@ -30,6 +30,8 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     private String packageName;
     @Parameter(defaultValue = "true")
     private boolean generateApis;
+    @Parameter(defaultValue = "false")
+    private boolean generateEqualsAndHashCode;
     @Parameter
     private String apiPackageName;
     @Parameter
@@ -61,6 +63,7 @@ public class GraphqlCodegenMojo extends AbstractMojo {
         mappingConfig.setGenerateApis(generateApis);
         mappingConfig.setModelValidationAnnotation(modelValidationAnnotation);
         mappingConfig.setCustomAnnotationsMapping(customAnnotationsMapping != null ? customAnnotationsMapping : new HashMap<>());
+        mappingConfig.setGenerateEqualsAndHashCode(generateEqualsAndHashCode);
         try {
             new GraphqlCodegen(Arrays.asList(graphqlSchemaPaths), outputDir, mappingConfig).generate();
         } catch (Exception e) {
@@ -167,5 +170,13 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
     public void setGenerateApis(boolean generateApis) {
         this.generateApis = generateApis;
+    }
+
+    public boolean isGenerateEqualsAndHashCode() {
+        return generateEqualsAndHashCode;
+    }
+
+    public void setGenerateEqualsAndHashCode(boolean generateEqualsAndHashCode) {
+        this.generateEqualsAndHashCode = generateEqualsAndHashCode;
     }
 }
