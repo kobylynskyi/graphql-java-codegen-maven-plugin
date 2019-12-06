@@ -2,6 +2,8 @@ package io.github.kobylynskyi.graphql.codegen;
 
 import com.kobylynskyi.graphql.codegen.GraphqlCodegen;
 import com.kobylynskyi.graphql.codegen.model.MappingConfig;
+import com.kobylynskyi.graphql.codegen.supplier.JsonMappingConfigSupplier;
+import com.kobylynskyi.graphql.codegen.supplier.MappingConfigSupplier;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -20,18 +22,23 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
     @Parameter(required = true)
     private String[] graphqlSchemaPaths;
+
     @Parameter(required = true)
     private File outputDir;
+
     @Parameter
     private Map<String, String> customTypesMapping;
     @Parameter
     private Map<String, String> customAnnotationsMapping;
     @Parameter
     private String packageName;
+
     @Parameter(defaultValue = "true")
     private boolean generateApis;
+
     @Parameter(defaultValue = "false")
     private boolean generateEqualsAndHashCode;
+
     @Parameter
     private String apiPackageName;
     @Parameter
@@ -40,8 +47,12 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     private String modelNamePrefix;
     @Parameter
     private String modelNameSuffix;
+
     @Parameter(defaultValue = "javax.validation.constraints.NotNull")
     private String modelValidationAnnotation;
+
+    @Parameter(name = "jsonConfigurationFile", required = false)
+    private String jsonConfigurationFile;
 
     /**
      * The project being built.
@@ -55,21 +66,33 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
         MappingConfig mappingConfig = new MappingConfig();
         mappingConfig.setPackageName(packageName);
-        mappingConfig.setCustomTypesMapping(customTypesMapping != null ? customTypesMapping : new HashMap<>());
+        mappingConfig.setCustomTypesMapping(
+                customTypesMapping != null ? customTypesMapping : new HashMap<>());
         mappingConfig.setModelNamePrefix(modelNamePrefix);
         mappingConfig.setModelNameSuffix(modelNameSuffix);
         mappingConfig.setApiPackageName(apiPackageName);
         mappingConfig.setModelPackageName(modelPackageName);
         mappingConfig.setGenerateApis(generateApis);
         mappingConfig.setModelValidationAnnotation(modelValidationAnnotation);
-        mappingConfig.setCustomAnnotationsMapping(customAnnotationsMapping != null ? customAnnotationsMapping : new HashMap<>());
+        mappingConfig.setCustomAnnotationsMapping(
+                customAnnotationsMapping != null ? customAnnotationsMapping : new HashMap<>());
         mappingConfig.setGenerateEqualsAndHashCode(generateEqualsAndHashCode);
+
+        MappingConfigSupplier mappingConfigSupplier = buildJsonSupplier(jsonConfigurationFile);
+
         try {
-            new GraphqlCodegen(Arrays.asList(graphqlSchemaPaths), outputDir, mappingConfig).generate();
+            new GraphqlCodegen(Arrays.asList(graphqlSchemaPaths), outputDir, mappingConfig, mappingConfigSupplier).generate();
         } catch (Exception e) {
             getLog().error(e);
             throw new MojoExecutionException("Code generation failed. See above for the full exception.");
         }
+    }
+
+    private MappingConfigSupplier buildJsonSupplier(String jsonConfigurationFile) {
+        if (jsonConfigurationFile != null && !jsonConfigurationFile.isEmpty()) {
+            return new JsonMappingConfigSupplier(jsonConfigurationFile);
+        }
+        return null;
     }
 
     private void addCompileSourceRootIfConfigured() {

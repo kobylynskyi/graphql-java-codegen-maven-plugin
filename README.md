@@ -67,6 +67,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 | modelNamePrefix           | String             | Empty                                 | Sets the prefix for GraphQL model classes (type, input, interface, enum, union). |
 | modelNameSuffix           | String             | Empty                                 | Sets the suffix for GraphQL model classes (type, input, interface, enum, union). |
 | generateEqualsAndHashCode | Boolean            | False                                 | Specifies whether generated model classes should have equals and hashCode methods defined. |
+| jsonConfigurationFile     | String             | Empty                                 | Path to separate json configuration file. File content should be in a json format {"optionKey":"optionValue", "optionKey1":"optionValue1"...} |
 
 
 ### Different configuration for each graphql schema
