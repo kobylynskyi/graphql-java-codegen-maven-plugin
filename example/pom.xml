@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.kobylynskyi.graphql.codegen</groupId>
     <artifactId>graphql-codegen-maven-plugin-example</artifactId>
-    <version>1.2.3</version>
+    <version>1.3.0</version>
 
     <name>graphql-codegen-maven-plugin-example</name>
 
@@ -13,14 +13,15 @@
             <plugin>
                 <groupId>io.github.kobylynskyi</groupId>
                 <artifactId>graphql-codegen-maven-plugin</artifactId>
-                <version>1.2.3</version>
+                <version>1.3.0</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <graphqlSchemaPaths>${project.basedir}/src/main/resources/schema.graphqls
+                            <graphqlSchemaPaths>
+                                <graphqlSchemaPath>${project.basedir}/src/main/resources/schema.graphqls</graphqlSchemaPath>
                             </graphqlSchemaPaths>
                             <outputDir>${project.build.directory}/generated-sources/graphql</outputDir>
                             <packageName>io.github.kobylynskyi.bikeshop.graphql.model</packageName>

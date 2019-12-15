@@ -23,7 +23,7 @@ This Maven plugin is able to generate the following classes based on your GraphQ
         <plugin>
             <groupId>io.github.kobylynskyi</groupId>
             <artifactId>graphql-codegen-maven-plugin</artifactId>
-            <version>1.2.3</version>
+            <version>1.3.0</version>
             <executions>
                 <execution>
                     <goals>
@@ -66,8 +66,9 @@ This Maven plugin is able to generate the following classes based on your GraphQ
 | modelValidationAnnotation | String             | @javax.validation.<br>constraints.NotNull | Annotation for mandatory (NonNull) fields. Can be null/empty. |
 | modelNamePrefix           | String             | Empty                                 | Sets the prefix for GraphQL model classes (type, input, interface, enum, union). |
 | modelNameSuffix           | String             | Empty                                 | Sets the suffix for GraphQL model classes (type, input, interface, enum, union). |
+| subscriptionReturnType    | String             | Empty                                 | Return type for subscription methods. For example: `org.reactivestreams.Publisher`, `io.reactivex.Observable`, etc. |
 | generateEqualsAndHashCode | Boolean            | False                                 | Specifies whether generated model classes should have equals and hashCode methods defined. |
-| jsonConfigurationFile     | String             | Empty                                 | Path to separate json configuration file. File content should be in a json format {"optionKey":"optionValue", "optionKey1":"optionValue1"...} |
+| generateToString          | Boolean            | False                                 | Specifies whether generated model classes should have toString method defined. |
 
 
 ### Different configuration for each graphql schema

@@ -39,6 +39,9 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     @Parameter(defaultValue = "false")
     private boolean generateEqualsAndHashCode;
 
+    @Parameter(defaultValue = "false")
+    private boolean generateToString;
+
     @Parameter
     private String apiPackageName;
     @Parameter
@@ -47,6 +50,8 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     private String modelNamePrefix;
     @Parameter
     private String modelNameSuffix;
+    @Parameter
+    private String subscriptionReturnType;
 
     @Parameter(defaultValue = "javax.validation.constraints.NotNull")
     private String modelValidationAnnotation;
@@ -77,6 +82,8 @@ public class GraphqlCodegenMojo extends AbstractMojo {
         mappingConfig.setCustomAnnotationsMapping(
                 customAnnotationsMapping != null ? customAnnotationsMapping : new HashMap<>());
         mappingConfig.setGenerateEqualsAndHashCode(generateEqualsAndHashCode);
+        mappingConfig.setGenerateToString(generateToString);
+        mappingConfig.setSubscriptionReturnType(subscriptionReturnType);
 
         MappingConfigSupplier mappingConfigSupplier = buildJsonSupplier(jsonConfigurationFile);
 
@@ -201,5 +208,29 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
     public void setGenerateEqualsAndHashCode(boolean generateEqualsAndHashCode) {
         this.generateEqualsAndHashCode = generateEqualsAndHashCode;
+    }
+
+    public boolean isGenerateToString() {
+        return generateToString;
+    }
+
+    public void setGenerateToString(boolean generateToString) {
+        this.generateToString = generateToString;
+    }
+
+    public void setJsonConfigurationFile(String jsonConfigurationFile) {
+        this.jsonConfigurationFile = jsonConfigurationFile;
+    }
+
+    public String getJsonConfigurationFile() {
+        return jsonConfigurationFile;
+    }
+
+    public void setSubscriptionReturnType(String subscriptionReturnType) {
+        this.subscriptionReturnType = subscriptionReturnType;
+    }
+
+    public String getSubscriptionReturnType() {
+        return subscriptionReturnType;
     }
 }
