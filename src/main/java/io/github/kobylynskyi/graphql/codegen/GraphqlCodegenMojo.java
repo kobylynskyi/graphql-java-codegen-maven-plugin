@@ -53,6 +53,9 @@ public class GraphqlCodegenMojo extends AbstractMojo {
     @Parameter
     private String subscriptionReturnType;
 
+    @Parameter(defaultValue = "false")
+    private boolean generateAsyncApi;
+
     @Parameter(defaultValue = "javax.validation.constraints.NotNull")
     private String modelValidationAnnotation;
 
@@ -84,6 +87,7 @@ public class GraphqlCodegenMojo extends AbstractMojo {
         mappingConfig.setGenerateEqualsAndHashCode(generateEqualsAndHashCode);
         mappingConfig.setGenerateToString(generateToString);
         mappingConfig.setSubscriptionReturnType(subscriptionReturnType);
+        mappingConfig.setGenerateAsyncApi(generateAsyncApi);
 
         MappingConfigSupplier mappingConfigSupplier = buildJsonSupplier(jsonConfigurationFile);
 
@@ -216,6 +220,14 @@ public class GraphqlCodegenMojo extends AbstractMojo {
 
     public void setGenerateToString(boolean generateToString) {
         this.generateToString = generateToString;
+    }
+
+    public boolean isGenerateAsyncApi() {
+        return generateAsyncApi;
+    }
+
+    public void setGenerateAsyncApi(boolean generateAsyncApi) {
+        this.generateAsyncApi = generateAsyncApi;
     }
 
     public void setJsonConfigurationFile(String jsonConfigurationFile) {
