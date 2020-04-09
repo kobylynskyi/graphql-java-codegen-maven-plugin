@@ -1,5 +1,5 @@
 # This repository was moved to the brand new location
 
-[graphql-java-codegen-maven-plugin](https://github.com/kobylynskyi/graphql-java-codegen/tree/master/plugins/graphql-java-codegen-maven-plugin)
+[graphql-java-codegen-maven-plugin](https://github.com/kobylynskyi/graphql-java-codegen/tree/master/plugins/maven)
 
-All open issues/PRs were transferred to the repository above.
+All open issues and PRs were transferred to the repository above.
